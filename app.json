@@ -1,0 +1,17 @@
+{
+  "name": "FacebookStoriesWidget",
+  "displayName": "FacebookStoriesWidget",
+  "expo": {
+    "name": "FacebookStoriesWidget",
+    "slug": "FacebookStoriesWidget",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

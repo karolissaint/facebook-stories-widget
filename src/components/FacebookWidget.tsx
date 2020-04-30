@@ -33,19 +33,22 @@ const styles = StyleSheet.create({
         borderColor: '#3d6ad6'
     },
     firstCard: {
+        position: "absolute",
+        width: CARD_WIDTH,
         marginHorizontal: 10,
         borderWidth: 1,
         borderColor: '#999',
         flex: 1,
         borderRadius: 10,
         overflow: 'hidden',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        zIndex: 2,
+        paddingBottom: 40
     },
     firstCardAvatar: {
         width: CARD_WIDTH,
         aspectRatio: 1,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        overflow: 'hidden'
     },
     storyImage: {
         width: CARD_WIDTH,
@@ -79,17 +82,16 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     firstTextHolder: {
-        // flex: 1,
-        // flexDirection: 'column',
-        // justifyContent: 'center',
-        paddingHorizontal: 10,
-        marginTop: -10
+        position: 'absolute',
+        bottom: 5,
+        left: 5
     },
     addButton: {
-        marginTop: -18,
+        position: 'absolute',
+        top: -18,
         backgroundColor: '#3d6ad6',
-        width: 35,
-        height: 35,
+        width: 36,
+        height: 36,
         borderRadius: 30,
         alignItems: 'center',
         justifyContent: 'center',
@@ -118,70 +120,32 @@ const styles = StyleSheet.create({
         zIndex: 4,
         borderBottomRightRadius: 50,
         borderTopRightRadius: 50
+    },
+    absoluteCenter: {
+        position: "absolute",
+        top: 0,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        zIndex: 2,
+    },
+    whiteBackground: {
+        backgroundColor: '#fff',
+        width: 70,
+        height: 70,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
     }
 })
 
 const StoryCard: React.FC<StoryCardInterface> = ({item, index, scrollX}) => {
 
     if (index === 0) {
-        const translateY = Animated.interpolate(scrollX, {
-            inputRange: [10, 100],
-            outputRange: [0, -TRANSITION]
-        })
-        const translateX = Animated.interpolate(scrollX, {
-            inputRange: [10, 100],
-            outputRange: [0, 35]
-        })
-        const scale = Animated.interpolate(scrollX, {
-            inputRange: [10, 100],
-            outputRange: [1, 3]
-        })
-        const hide = Animated.interpolate(scrollX, {
-            inputRange: [10, 100],
-            outputRange: [0, 100]
-        })
         return (
             <View style={{
                 width: CARD_WIDTH + 20,
             }}>
-                <View style={styles.firstCard}>
-                    <Animated.Image
-                        style={[styles.firstCardAvatar, {
-                            transform: [
-                                {
-                                    scale: Animated.max(Animated.min(scale, 2), 1)
-                                }
-                            ]
-                        }]}
-                        source={{
-                            uri: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-1/s240x240/68670403_10205271965395412_8493213161149693952_n.jpg?_nc_cat=110&_nc_sid=814017&_nc_ohc=a9hy7WxzsvcAX_6Uxaf&_nc_ht=scontent.fvno3-1.fna&_nc_tp=7&oh=a967edb962a66a56bb1630569e24ddcb&oe=5ECEE54B'
-                        }}/>
-                    <Animated.View style={[
-                        styles.addButton,
-                        {
-                            transform: [
-                                {
-                                    translateY: Animated.max(Animated.min(translateY, 0), -24)
-                                },
-                                {
-                                    translateX: Animated.max(translateX, 0)
-                                },
-                            ]
-                        }]}>
-                        <Text style={styles.addButtonText}>
-                            +
-                        </Text>
-                    </Animated.View>
-                    <Animated.View style={[styles.firstTextHolder, {
-                        transform: [
-                            {translateY: Animated.max(hide, 0)}
-                        ]
-                    }]}>
-                        <Text style={styles.firstText}>
-                            Create a Story
-                        </Text>
-                    </Animated.View>
-                </View>
             </View>
         )
     }
@@ -247,41 +211,131 @@ export const FacebookWidget: React.FC<WidgetProps> = (props) => {
 
     const translateX = Animated.interpolate(scrollX, {
         inputRange: [0, 100],
-        outputRange: [-FLOATING_WIDTH, 0],
+        outputRange: [0, 20],
         extrapolate: Animated.Extrapolate.CLAMP
     })
-
-    const opacity = Animated.interpolate(scrollX, {
-        inputRange: [75, 76],
+    const translateY = Animated.interpolate(scrollX, {
+        inputRange: [10, 100],
+        outputRange: [0, -TRANSITION]
+    });
+    const scale = Animated.interpolate(scrollX, {
+        inputRange: [10, 100],
+        outputRange: [1, 0.5]
+    });
+    const paddingBottom = Animated.interpolate(scrollX, {
+        inputRange: [0, 100],
+        outputRange: [100, 0]
+    });
+    const hide = Animated.interpolate(scrollX, {
+        inputRange: [10, 100],
+        outputRange: [0, 100]
+    });
+    const imageRadius = Animated.interpolate(scrollX, {
+        inputRange: [10, 100],
+        outputRange: [0, 100]
+    });
+    const cardRadius = Animated.interpolate(scrollX, {
+        inputRange: [10, 100],
+        outputRange: [10, 100]
+    });
+    const translateYPosition = Animated.interpolate(scrollX, {
+        inputRange: [40, 60],
+        outputRange: [0, 40]
+    });
+    const translateXPosition = Animated.interpolate(scrollX, {
+        inputRange: [10, 60],
+        outputRange: [0, -30]
+    });
+    const border = Animated.interpolate(scrollX, {
+        inputRange: [10, 100],
+        outputRange: [1, 0],
+        extrapolate: Animated.Extrapolate.CLAMP
+    });
+    const blockScale = Animated.interpolate(scrollX, {
+        inputRange: [80, 100],
         outputRange: [0, 1],
         extrapolate: Animated.Extrapolate.CLAMP
-    })
+    });
+
 
     return (
         <SafeAreaView style={{marginTop: 300}}>
-            <Animated.View style={[styles.floatingAddButton,
-                {
-                    opacity,
-                    transform: [{
-                        translateX
-                    }]
-                }
-            ]}
-            >
-                <View style={[styles.addButton, {marginTop: 3, marginLeft: 15}]}>
-                    <Text style={styles.addButtonText}>
-                        +
-                    </Text>
+            <Animated.View style={[styles.absoluteCenter, {
+                transform: [
+                    {
+                        scale: blockScale
+                    }
+                ]
+            }]}>
+                <View style={[styles.whiteBackground]}>
+
                 </View>
+            </Animated.View>
+            <Animated.View style={[styles.firstCard, {
+                borderRadius: Animated.max(cardRadius, 10),
+                borderWidth: border,
+                paddingBottom: Animated.min(paddingBottom, 59),
+                transform: [
+                    {
+                        scale: Animated.max(Animated.min(scale, 1), 0.6)
+                    },
+                    {
+                        translateY: Animated.max(Animated.min(translateYPosition, 50), 0)
+                    },
+                    {
+                        translateX: Animated.max(Animated.min(translateXPosition, 0), -30)
+                    }
+                ]
+            }]}>
+                <Animated.Image
+                    style={[styles.firstCardAvatar, {
+                        borderRadius: imageRadius,
+                        transform: [
+                            {
+                                scale: Animated.max(Animated.min(scale, 1), 0.75)
+                            },
+                        ]
+                    }]}
+                    source={{
+                        uri: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-1/s240x240/68670403_10205271965395412_8493213161149693952_n.jpg?_nc_cat=110&_nc_sid=814017&_nc_ohc=a9hy7WxzsvcAX_6Uxaf&_nc_ht=scontent.fvno3-1.fna&_nc_tp=7&oh=a967edb962a66a56bb1630569e24ddcb&oe=5ECEE54B'
+                    }}/>
+                <View style={{position: 'relative'}}>
+                    <Animated.View style={[
+                        styles.addButton,
+                        {
+                            transform: [
+                                {
+                                    translateY: Animated.max(Animated.min(translateY, 0), -30)
+                                },
+                                {
+                                    translateX: Animated.min(Animated.max(translateX, 0), 20)
+                                },
+                            ]
+                        }]}>
+                        <Text style={styles.addButtonText}>
+                            +
+                        </Text>
+                    </Animated.View>
+                </View>
+                <Animated.View style={[styles.firstTextHolder, {
+                    transform: [
+                        {translateY: Animated.max(hide, 0)}
+                    ]
+                }]}>
+                    <Text style={styles.firstText}>
+                        Create a Story
+                    </Text>
+                </Animated.View>
             </Animated.View>
             <Animated.ScrollView
                 horizontal={true}
                 onScroll={onScrollHandler}
                 scrollEventThrottle={6}
                 showsHorizontalScrollIndicator={false}
+                bounces={false}
             >
                 <Animated.View style={{flexDirection: "row"}}>
-                    {data.map((item, index) => {
+                    {!!data && data.map((item, index) => {
                         return (
                             <StoryCard key={index} item={item} index={index} scrollX={scrollX}/>
                         )

@@ -1,15 +1,23 @@
-import * as React from "react";
-import {Image, SafeAreaView, StyleSheet, Text, View} from "react-native";
+import * as React from 'react';
+import {
+    Image,
+    ImageSourcePropType,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native';
 import Animated from 'react-native-reanimated';
-
+import userImage from './../assets/img/XzA3NjA4MTAuanBn.jpg'
+import storyImage from './../assets/img/skater.jpg'
 interface WidgetProps {
 
 }
 
 interface StoryCardInterface {
     item: {
-        user?: string,
-        story?: string
+        user: ImageSourcePropType,
+        story: ImageSourcePropType
     },
     index: number,
     scrollX: Animated.Node<number>
@@ -47,7 +55,8 @@ const styles = StyleSheet.create({
     },
     firstCardAvatar: {
         width: CARD_WIDTH,
-        aspectRatio: 1,
+        height: 120,
+        // aspectRatio: 1,
         overflow: 'hidden'
     },
     storyImage: {
@@ -133,7 +142,7 @@ const styles = StyleSheet.create({
     whiteBackground: {
         backgroundColor: '#fff',
         width: 70,
-        height: 70,
+        height: 71,
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10
     }
@@ -151,10 +160,10 @@ const StoryCard: React.FC<StoryCardInterface> = ({item, index, scrollX}) => {
     }
     return (
         <View style={styles.storyCard}>
-            <Image source={{uri: item.user}} style={styles.avatar}/>
+            <Image source={item.user} style={styles.avatar}/>
             <Image
                 style={styles.storyImage}
-                source={{uri: item.story}}
+                source={item.story}
             />
             <View style={styles.textHolder}>
                 <Text style={styles.text}>
@@ -166,38 +175,13 @@ const StoryCard: React.FC<StoryCardInterface> = ({item, index, scrollX}) => {
 }
 
 export const FacebookWidget: React.FC<WidgetProps> = (props) => {
-    const data = [
-        {
-            id: 1,
-            user: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-1/cp0/p50x50/69041928_10205271965435413_5102809051914305536_o.jpg?_nc_cat=103&_nc_sid=cc4bfb&_nc_ohc=B7xUK5rMFPEAX9C6YMu&_nc_ht=scontent.fvno3-1.fna&oh=c715d51bc553bc1dbc6dc3737e32a7bf&oe=5ECD7B82',
-            story: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-0/s206x206/95225432_2978949445481897_8519941030395510784_n.jpg?_nc_cat=107&_nc_sid=5676ae&_nc_ohc=KL6ltBJKV4YAX9mlVrr&_nc_ht=scontent.fvno3-1.fna&_nc_tp=7&oh=6adf77d095a2caf28bcb85c5514e4282&oe=5ED0B06E'
-        },
-        {
-            id: 2,
-            user: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-1/cp0/p50x50/69041928_10205271965435413_5102809051914305536_o.jpg?_nc_cat=103&_nc_sid=cc4bfb&_nc_ohc=B7xUK5rMFPEAX9C6YMu&_nc_ht=scontent.fvno3-1.fna&oh=c715d51bc553bc1dbc6dc3737e32a7bf&oe=5ECD7B82',
-            story: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-0/s206x206/95225432_2978949445481897_8519941030395510784_n.jpg?_nc_cat=107&_nc_sid=5676ae&_nc_ohc=KL6ltBJKV4YAX9mlVrr&_nc_ht=scontent.fvno3-1.fna&_nc_tp=7&oh=6adf77d095a2caf28bcb85c5514e4282&oe=5ED0B06E'
-        },
-        {
-            id: 3,
-            user: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-1/cp0/p50x50/69041928_10205271965435413_5102809051914305536_o.jpg?_nc_cat=103&_nc_sid=cc4bfb&_nc_ohc=B7xUK5rMFPEAX9C6YMu&_nc_ht=scontent.fvno3-1.fna&oh=c715d51bc553bc1dbc6dc3737e32a7bf&oe=5ECD7B82',
-            story: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-0/s206x206/95225432_2978949445481897_8519941030395510784_n.jpg?_nc_cat=107&_nc_sid=5676ae&_nc_ohc=KL6ltBJKV4YAX9mlVrr&_nc_ht=scontent.fvno3-1.fna&_nc_tp=7&oh=6adf77d095a2caf28bcb85c5514e4282&oe=5ED0B06E'
-        },
-        {
-            id: 4,
-            user: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-1/cp0/p50x50/69041928_10205271965435413_5102809051914305536_o.jpg?_nc_cat=103&_nc_sid=cc4bfb&_nc_ohc=B7xUK5rMFPEAX9C6YMu&_nc_ht=scontent.fvno3-1.fna&oh=c715d51bc553bc1dbc6dc3737e32a7bf&oe=5ECD7B82',
-            story: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-0/s206x206/95225432_2978949445481897_8519941030395510784_n.jpg?_nc_cat=107&_nc_sid=5676ae&_nc_ohc=KL6ltBJKV4YAX9mlVrr&_nc_ht=scontent.fvno3-1.fna&_nc_tp=7&oh=6adf77d095a2caf28bcb85c5514e4282&oe=5ED0B06E'
-        },
-        {
-            id: 5,
-            user: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-1/cp0/p50x50/69041928_10205271965435413_5102809051914305536_o.jpg?_nc_cat=103&_nc_sid=cc4bfb&_nc_ohc=B7xUK5rMFPEAX9C6YMu&_nc_ht=scontent.fvno3-1.fna&oh=c715d51bc553bc1dbc6dc3737e32a7bf&oe=5ECD7B82',
-            story: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-0/s206x206/95225432_2978949445481897_8519941030395510784_n.jpg?_nc_cat=107&_nc_sid=5676ae&_nc_ohc=KL6ltBJKV4YAX9mlVrr&_nc_ht=scontent.fvno3-1.fna&_nc_tp=7&oh=6adf77d095a2caf28bcb85c5514e4282&oe=5ED0B06E'
-        },
-        {
-            id: 6,
-            user: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-1/cp0/p50x50/69041928_10205271965435413_5102809051914305536_o.jpg?_nc_cat=103&_nc_sid=cc4bfb&_nc_ohc=B7xUK5rMFPEAX9C6YMu&_nc_ht=scontent.fvno3-1.fna&oh=c715d51bc553bc1dbc6dc3737e32a7bf&oe=5ECD7B82',
-            story: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-0/s206x206/95225432_2978949445481897_8519941030395510784_n.jpg?_nc_cat=107&_nc_sid=5676ae&_nc_ohc=KL6ltBJKV4YAX9mlVrr&_nc_ht=scontent.fvno3-1.fna&_nc_tp=7&oh=6adf77d095a2caf28bcb85c5514e4282&oe=5ED0B06E'
-        },
-    ];
+    const data = new Array(6).fill({}).map((item, index) => {
+        return {
+            id: index,
+            user: userImage,
+            story: storyImage
+        }
+    })
 
     const scrollX = new Animated.Value(0)
 
@@ -296,9 +280,7 @@ export const FacebookWidget: React.FC<WidgetProps> = (props) => {
                             },
                         ]
                     }]}
-                    source={{
-                        uri: 'https://scontent.fvno3-1.fna.fbcdn.net/v/t1.0-1/s240x240/68670403_10205271965395412_8493213161149693952_n.jpg?_nc_cat=110&_nc_sid=814017&_nc_ohc=a9hy7WxzsvcAX_6Uxaf&_nc_ht=scontent.fvno3-1.fna&_nc_tp=7&oh=a967edb962a66a56bb1630569e24ddcb&oe=5ECEE54B'
-                    }}/>
+                    source={userImage}/>
                 <View style={{position: 'relative'}}>
                     <Animated.View style={[
                         styles.addButton,
